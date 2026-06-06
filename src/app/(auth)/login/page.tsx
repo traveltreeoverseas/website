@@ -39,13 +39,9 @@ function LoginForm() {
         toast.error(result.error === 'CredentialsSignin' ? 'Invalid email or password' : result.error);
       } else {
         toast.success('Welcome back!');
-        // Fetch session to get role for redirect
-        const { getSession } = await import('next-auth/react');
-        const session = await getSession();
-        const role = (session?.user as any)?.role;
-        const defaultUrl = role === 'admin' ? '/admin/dashboard' : '/client/dashboard';
-        router.push(callbackUrl !== '/' ? callbackUrl : defaultUrl);
-        router.refresh();
+        // Use full page navigation so session cookie is read fresh
+        const destination = callbackUrl && callbackUrl !== '/' ? callbackUrl : '/dashboard';
+        window.location.href = destination;
       }
     } catch (err) {
       setError('An unexpected error occurred');
