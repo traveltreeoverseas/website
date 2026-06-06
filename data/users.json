@@ -1,0 +1,13 @@
+[
+  {
+    "id": "usr_admin_001",
+    "name": "Admin",
+    "email": "admin@traveltree.com",
+    "phone": "+8801700000000",
+    "password": "$2b$10$evb.3T.p2/HKgC9CG.NWRO1SXcvWhiCruGBkSfvA69r/DOC2DzvHy",
+    "role": "admin",
+    "isActive": true,
+    "createdAt": "2026-04-20T10:56:43.241Z",
+    "updatedAt": "2026-04-20T10:56:43.243Z"
+  }
+]
