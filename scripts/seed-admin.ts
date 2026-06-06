@@ -39,7 +39,7 @@ async function seedAdmin() {
     const hashed = await bcrypt.hash(DEFAULT_ADMIN.password, 10);
     const { error: updateError } = await supabase
       .from('users')
-      .update({ password: hashed, role: 'admin', isActive: true })
+      .update({ password: hashed, role: 'admin', is_active: true })
       .eq('id', existing.id);
 
     if (updateError) {
@@ -52,20 +52,16 @@ async function seedAdmin() {
 
   // Create new admin
   const hashedPassword = await bcrypt.hash(DEFAULT_ADMIN.password, 10);
-  const adminId = `usr_${Math.random().toString(36).substring(2, 10)}`;
 
   const { data: newAdmin, error: insertError } = await supabase
     .from('users')
     .insert({
-      id: adminId,
       email: DEFAULT_ADMIN.email,
       name: DEFAULT_ADMIN.name,
       phone: '+8801700000000',
       password: hashedPassword,
       role: 'admin',
-      isActive: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      is_active: true,
     })
     .select()
     .single();
