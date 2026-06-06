@@ -35,11 +35,16 @@ function LoginForm() {
       });
 
       if (result?.error) {
-        setError(result.error);
-        toast.error(result.error);
+        setError(result.error === 'CredentialsSignin' ? 'Invalid email or password' : result.error);
+        toast.error(result.error === 'CredentialsSignin' ? 'Invalid email or password' : result.error);
       } else {
         toast.success('Welcome back!');
-        router.push(callbackUrl);
+        // Fetch session to get role for redirect
+        const { getSession } = await import('next-auth/react');
+        const session = await getSession();
+        const role = (session?.user as any)?.role;
+        const defaultUrl = role === 'admin' ? '/admin/dashboard' : '/client/dashboard';
+        router.push(callbackUrl !== '/' ? callbackUrl : defaultUrl);
         router.refresh();
       }
     } catch (err) {
